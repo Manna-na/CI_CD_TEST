@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafit.model.dao.PauseDao"> 
+
+<insert id="insertPause" parameterType="Pause">
+INSERT INTO Pause(videoId, userId, pauseTime)
+VALUES(#{videoId}, #{userId}, #{pauseTime})
+</insert>
+
+<delete id="deletePause" parameterType="int">
+DELETE FROM Pause
+WHERE pauseId = #{pauseId}
+</delete>
+
+<update id="updatePause" parameterType="Pause">
+UPDATE Pause SET pauseTime = #{pauseTime} WHERE pauesId = #{pauseId}
+</update>
+
+<select id="selectPause" parameterType="hashmap">
+SELECT pauseId WHERE userId = #{userId} AND videoId = #{videoId}
+</select>
+
+</mapper>

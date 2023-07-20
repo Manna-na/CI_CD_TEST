@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafit.model.dao.UserDao">
+
+	<insert id="insertUser" parameterType="User">
+		INSERT INTO
+		User(userId, password, email, name)
+		VALUES(#{userId}, #{password},#{email},#{name})
+	</insert>
+
+	<select id="selectUserById" resultType="User" parameterType="String">
+		SELECT * FROM User WHERE userId = #{userId}
+	</select>
+	
+	<select id="selectUserByEmail" resultType="User" parameterType="String">
+		SELECT * FROM User WHERE email = #{email}
+	</select>
+
+	<update id="updateUser" parameterType="User">
+		UPDATE User
+		SET name = #{name},
+		password = #{password}, email = #{email}
+		WHERE userId = #{userId}
+	</update>
+	
+	<delete id="deleteUser" parameterType="String">
+	DELETE FROM User
+	WHERE userId = #{userId}
+	</delete>
+
+	<select id="selectAll" resultType="User">
+		SELECT * FROM User
+	</select>
+</mapper>

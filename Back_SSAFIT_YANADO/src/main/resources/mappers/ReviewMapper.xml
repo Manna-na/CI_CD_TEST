@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafit.model.dao.ReviewDao">
+
+	<insert parameterType="Review" id="insertReview">
+		INSERT INTO Review(reviewId, videoId, userId, content, date)
+		VALUES(#{reviewId}, #{videoId}, #{userId}, #{content}, now())
+	</insert>
+
+	<delete parameterType="int" id="deleteReview">
+		DELETE FROM Review WHERE reviewId = #{reivewId}
+	</delete>
+
+	<select id="selectReview" parameterType="int"
+		resultType="Review">
+		SELECT * FROM Review WHERE reviewId = #{reviewId}
+	</select>
+
+	<select parameterType="String" id="selectReviewAll"
+		resultType="Review">
+		SELECT * FROM Review WHERE videoId = #{videoId}
+	</select>
+
+	<update parameterType="Review" id="updateReview">
+		UPDATE Review
+		SET content = #{content}, date = now(), isUpdated = true
+		WHERE reviewId = #{reviewId}
+	</update>
+
+	<update id="upCommentCnt" parameterType="String">
+		UPDATE Video
+		SET commentCnt = commentCnt + 1
+		WHERE videoId = #{videoId}
+	</update>
+
+	<update id="downCommentCnt" parameterType="String">
+		UPDATE Video
+		SET commentCnt = commentCnt - 1
+		WHERE videoId = #{videoId}
+	</update>
+
+	<select id="didIReview" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*)
+		FROM Review
+		WHERE userId = #{userId} AND videoId = #{videoId}
+	</select>
+</mapper>

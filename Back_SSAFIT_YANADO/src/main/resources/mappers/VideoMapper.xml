@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafit.model.dao.VideoDao">
+
+	<insert parameterType="Video" id="insertVideo">
+	INSERT INTO Video(videoId, channelName, videoTitle, viewCnt)
+	VALUES (#{videoId}, #{channelName},#{videoTitle}, 0) 
+	</insert>
+
+	<select parameterType="String" id="selectVideo" resultType="Video">
+	SELECT *FROM Video WHERE videoId=#{videoId} </select>
+
+	<select id="selectAllVideo" resultType="Video">
+	SELECT * FROM Video
+	</select>
+
+	<select id="selectVideoByLikeCnt" resultType="Video">
+	SELECT * FROM Video
+	ORDER BY likeCnt DESC
+	LIMIT 10
+	</select>
+
+	<select id="selectVideoByViewCnt" resultType="Video">
+	SELECT * FROM Video
+	ORDER BY viewCnt DESC
+	LIMIT 10
+	</select>
+	
+	<update id="updateViewCnt" parameterType="String">
+	UPDATE Video
+	SET viewCnt = viewCnt + 1
+	WHERE videoId = #{videoId}
+	</update>
+</mapper>
